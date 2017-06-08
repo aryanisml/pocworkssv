@@ -1,0 +1,276 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" style="border:none; height:560px;">
+            <div class="row" style="margin-top:12px;">
+                <div class="col-sm-3">
+                    # Sites
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" ng-model="$ctrl.site" style="width:100%;" />
+                </div>
+                <div class="col-sm-5">
+                    <button class="glyphicon glyphicon-refresh" style="border:none; background-color: white; color:#0AA3DD" ng-click="$ctrl.showSites()"> Update Table</button>
+                </div>
+
+            </div>
+            <hr ng-if="$ctrl.tempOff" style="margin-top:10px; background-color:#0AA3DD; border-color:#0AA3DD " />
+
+            <div class="row" ng-if="$ctrl.tempOff">
+                <div class="col-sm-12" style="margin-top:-12px;">
+                    <label>Site Selection</label>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1">
+                    <label>Distribution Method</label>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>
+                            <input type="radio" ng-model="$ctrl.ssvMethod" value="ssvSpread" ng-change="$ctrl.ssvSpread()"  ng-disabled="!$ctrl.initialSSVCalculation"> Even Spread
+                        </label>
+                            <label>
+                            <input type="radio" ng-model="$ctrl.ssvMethod" value="ssvRate" ng-change="$ctrl.ssvRates()"  ng-disabled="!$ctrl.initialSSVCalculation"> Rate
+                        </label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1" style="padding-top:12px;">
+                    <div class="row" ng-if="$ctrl.ssvSpreadShow">
+                        <div class="col-sm-3">
+                            <label for="firstSSV">First SSV</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="firstSSV" style="width:340%" ng-model="$ctrl.firstSSV" ng-disabled="!$ctrl.initialSSVCalculation"
+                                ng-class="{'disabled-kendoCalendarPicker':!$ctrl.initialSSVCalculation }" />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;" ng-if="$ctrl.ssvSpreadShow">
+                        <div class="col-sm-3">
+                            <label for="lastSSV">Last SSV</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="lastSSV" style="width:340%" ng-model="$ctrl.lastSSV" ng-disabled="!$ctrl.initialSSVCalculation"
+                                ng-class="{'disabled-kendoCalendarPicker':!$ctrl.initialSSVCalculation }" />
+                        </div>
+                    </div>
+                    <div class="row" ng-if="!$ctrl.ssvSpreadShow">
+                        <div class="col-sm-4">
+                            <label for="ssvStartDate">SSV Start Date</label>
+                        </div>
+                        <div class="col-sm-3" style="margin-left:-6.33%">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="ssvStartDate" style="width:310%" ng-model="$ctrl.ssvStartDate" ng-disabled="!$ctrl.initialSSVCalculation"
+                            />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;" ng-if="!$ctrl.ssvSpreadShow">
+                        <div class="col-sm-3">
+                            <label for="ssvRate">SSV Rate</label>
+                        </div>
+                        <div class="col-sm-3" style="margin-left:-6.33%">
+                            <input type="text" style="width:85%; margin-left:52%" ng-model="$ctrl.ssvRate" ng-disabled="!$ctrl.initialSSVCalculation"
+                            />
+                        </div>
+                        <div class="col-sm-3">
+                            Sites per
+                        </div>
+                        <div class="col-sm-1">
+                            <select kendo-drop-down-list style="width:80px; margin-left:-35px;" ng-model="$ctrl.ssvSitesPer" ng-disabled="!$ctrl.initialSSVCalculation">
+                                <option value="M">month</option>
+                                <option value="W">week</option>
+                                <option value="Y">year</option>
+                              </select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-11 text-right">
+                            <button class="glyphicon glyphicon-calendar" style="border:none; background-color: white; color:#0AA3DD" ng-click="$ctrl.ssvCalculate()"
+                                ng-disabled="!$ctrl.initialSSVCalculation" ng-class="{'disabled-btn':!$ctrl.initialSSVCalculation }"> Calculate</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <hr ng-if="$ctrl.tempOff" style="margin-top:10px; background-color:#0AA3DD; border-color:#0AA3DD " />
+            <div class="row" ng-if="$ctrl.tempOff">
+                <div class="col-sm-12" style="margin-top:-12px;">
+                    <label>Site Initiation</label>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1">
+                    <label>Distribution Method</label>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>
+                            <input type="radio" ng-model="$ctrl.siMethod" value="siMinMaxSSU" ng-change="$ctrl.siMinMax()" ng-disabled="!$ctrl.initialSICalculation"> Min-Max SSU
+                        </label>
+                            <label>
+                            <input type="radio" ng-model="$ctrl.siMethod" value="siRate" ng-change="$ctrl.siRates()" ng-disabled="!$ctrl.initialSICalculation"> Rate
+                        </label>
+                            <label>
+                            <input type="radio" ng-model="$ctrl.siMethod" value="siEndDate" ng-change="$ctrl.siEndDate()" ng-disabled="!$ctrl.initialSICalculation"> SI End Date
+                        </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1" style="padding-top:12px;">
+                    <div class="row" ng-if="($ctrl.siMinMaxSsuShow)">
+                        <div class="col-sm-3">
+                            <label for="siMinSsu">Min SSU</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="siMinSsu" name="siMinSsu" ng-disabled="!$ctrl.initialSICalculation" />
+                        </div>
+                        <div class="col-sm-2">
+                            days
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;" ng-if="$ctrl.siMinMaxSsuShow">
+                        <div class="col-sm-3">
+                            <label for="siMaxSsu">Max SSU</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="siMaxSsu" name="siMaxSsu" ng-disabled="!$ctrl.initialSICalculation" />
+                        </div>
+                        <div class="col-sm-2">
+                            days
+                        </div>
+                    </div>
+                    <div class="row" ng-if="$ctrl.siRateShow">
+                        <div class="col-sm-3">
+                            <label for="siMinSsuRate">Min SSU</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="siMinSsuRate" name="siMinSsuRate" ng-disabled="!$ctrl.initialSICalculation" />
+                        </div>
+                        <div class="col-sm-2">
+                            days
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;" ng-if="$ctrl.siRateShow">
+                        <div class="col-sm-3">
+                            <label for="siRate">SI Rate</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" style="width:85%" ng-model="$ctrl.siRate" ng-disabled="!$ctrl.initialSICalculation" />
+                        </div>
+                        <div class="col-sm-3" style="margin-left:-35px;">
+                            Sites per
+                        </div>
+                        <div class="col-sm-1">
+                            <select kendo-drop-down-list style="width:100px; margin-left:-35px;" ng-model="$ctrl.siSitesPer" ng-disabled="!$ctrl.initialSICalculation">
+                                <option value="M">month</option>
+                                <option value="W">week</option>
+                                <option value="Y">year</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="row" ng-if=" (!$ctrl.siMinMaxSsuShow && !$ctrl.siRateShow)">
+                        <div class="col-sm-3">
+                            <label for="siMinSsuEndDate">Min SSU</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-model="siMinSsuEndDate" name="siMinSsuEndDate" ng-disabled="!$ctrl.initialSICalculation" />
+                        </div>
+                        <div class="col-sm-2">
+                            days
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;" ng-if="(!$ctrl.siMinMaxSsuShow && !$ctrl.siRateShow)">
+                        <div class="col-sm-5">
+                            <label for="siEndDate">SI End Date</label>
+                        </div>
+                        <div class="col-sm-7" style="margin-left:-17%;">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="siEndDate" ng-model="$ctrl.siEndDate" style="width:116%" ng-disabled="!$ctrl.initialSICalculation"
+                            />
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-11 text-right">
+                            <button class="glyphicon glyphicon-calendar" style="border:none; background-color: white; color:#0AA3DD" ng-click="$ctrl.siCalculate()"
+                                ng-class="{'disabled-btn':!$ctrl.initialSICalculation }"> Calculate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-xs-6" style="border:solid;  height:560px;">-->
+        <!--<div style="margin-top:12px;">-->
+        <!--<kendo-grid id="theGrid" style="height:450px" k-options="$ctrl.mainGridOptions" k-rebind="$ctrl.mainGridOptions">
+                </kendo-grid>-->
+        <!--<table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Site Id
+                            </th>
+                            <th>
+                                SSV Date
+                            </th>
+                            <th>
+                                SSU
+                            </th>
+                            <th>
+                                SVI Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.xData">
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                <input ng-if="item.ActualSSV==false" type="text" kendo-date-picker ng-model="item.SSVDate" />
+                                <label ng-if="item.ActualSSV">{{item.SSVDate}}</label>
+                            </td>
+                            <td>
+
+                                <label>{{item.SSU}}</label>
+                            </td>
+                            <td>
+                                <input ng-if="item.ActualSI==false" type="text" kendo-date-picker ng-model="item.SIDate" />
+                                <label ng-if="item.ActualSI">{{item.SIDate}}</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div style="border:solid;" ng-repeat="item in $ctrl.xData" class="col-xs-6">
+                 <div class="col-xs-item"  style="border:solid;" ng-class="{'one':$ctrl.site==1 || 'two':$ctrl.site==2 }">
+                     hello
+                 </div>
+        </div>-->
+        <div class="col-xs-2" style="border:solid; background-color:purple; height:50px; width:50px;">
+            <div ng-repeat="item in $ctrl.xData">
+                <div class="col-xs-2" ng-class="{'one':$index===0 , 'two' :$index===1, 'three' :$index===2 }" 
+                        style="height:02px; width:0px; float:right!important">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<!--
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            <input type="text" ng-model="$ctrl.site" />
+            <input type="button" ng-click="$ctrl.ClickShow()" value="Update Table" />
+        </div>
+        <div class="col-xs-6">
+            <kendo-grid k-options="$ctrl.mainGridOptions" k-rebind="$ctrl.mainGridOptions">
+            </kendo-grid>
+        </div>
+    </div>
+</div>-->

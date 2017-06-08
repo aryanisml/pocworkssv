@@ -1,0 +1,203 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" style="border:solid; height:560px;">
+            <div class="row" style="margin-top:12px;">
+                <div class="col-sm-3">
+                    # Sites
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" ng-model="$ctrl.site" style="width:100%;" />
+                </div>
+                <div class="col-sm-5">
+                    <button class="glyphicon glyphicon-refresh" style="border:none; background-color: white; color:#0AA3DD" ng-click="$ctrl.ClickShow()"> Update Table</button>
+                </div>
+
+            </div>
+            <hr style="margin-top:10px; background-color:#0AA3DD; border-color:#0AA3DD " />
+            <div class="row">
+                <div class="col-sm-12" style="margin-top:-12px;">
+                    <label>Site Selection</label>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1">
+                    <label>Distribution Method</label>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="radio" name="ssvMethod" id="ssvEvenSpread" checked> Even Spread
+                            <input type="radio" name="ssvMethod" id="ssvRate" class=""> Rate
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1" style="padding-top:12px;">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="firstSSV">First SSV</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="firstSSV" style="width:340%" />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-3">
+                            <label for="lastSSV">Last SSV</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="lastSSV" style="width:340%" />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-4">
+                            <label for="ssvStartDate">SSV Start Date</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input kendo-date-picker k-format="'dd MMM yyyy'" name="ssvStartDate" style="width:310%" />
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-3">
+                            <label for="ssvRate">SSV Rate</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" style="width:85%; margin-left:52%" />
+                        </div>
+                        <div class="col-sm-3">
+                            Sites per
+                        </div>
+                        <div class="col-sm-1">
+                            <select kendo-drop-down-list style="width:80px; margin-left:-35px;">
+                                   <option value="M">month</option>
+                                <option value="W">week</option>
+                                <option value="Y">year</option>
+                                 </select>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-10 text-right">
+                            <button class="glyphicon glyphicon-calendar" style="border:none; background-color: white; color:#0AA3DD"> Calculate</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <hr style="margin-top:10px; background-color:#0AA3DD; border-color:#0AA3DD " />
+            <div class="row">
+                <div class="col-sm-12" style="margin-top:-12px;">
+                    <label>Site Initiation</label>
+                </div>
+                <div class="col-sm-6 col-sm-offset-1">
+                    <label>Distribution Method</label>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="radio" name="engine" id=""> Min-Max SSU
+                            <input type="radio" name="engine" id="" class="" checked> Rate
+                            <input type="radio" name="engine" id="" class=""> SI End Date
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-sm-offset-1" style="padding-top:12px;">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label for="fname">Min SSU</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" />
+                        </div>
+                        <div class="col-sm-2">
+                            days
+                        </div>
+
+                    </div>
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-3">
+                            SI Rate
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" style="width:85%;" />
+                        </div>
+                        <div class="col-sm-3">
+                            Sites per
+                        </div>
+                        <div class="col-sm-1" style="margin-left:-22px;">
+                            <select>
+                                <option>Month</option>
+                                <option>Week</option>
+                                <option>Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top:9px;">
+                        <div class="col-sm-10 text-right">
+                            <button class="glyphicon glyphicon-calendar" style="border:none; background-color: white; color:#0AA3DD"> Calculate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-8" style="border:solid;  height:560px;">
+            <div style="margin-top:12px;">
+                <kendo-grid id="theGrid" k-options="$ctrl.mainGridOptions" k-rebind="$ctrl.mainGridOptions">
+                </kendo-grid>
+                <!--<table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Site Id
+                            </th>
+                            <th>
+                                SSV Date
+                            </th>
+                            <th>
+                                SSU
+                            </th>
+                            <th>
+                                SVI Date
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.xData">
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                <input ng-if="item.ActualSSV==false" type="text" kendo-date-picker ng-model="item.SSVDate" />
+                                <label ng-if="item.ActualSSV">{{item.SSVDate}}</label>
+                            </td>
+                            <td>
+
+                                <label>{{item.SSU}}</label>
+                            </td>
+                            <td>
+                                <input ng-if="item.ActualSI==false" type="text" kendo-date-picker ng-model="item.SIDate" />
+                                <label ng-if="item.ActualSI">{{item.SIDate}}</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6">
+            <input type="text" ng-model="$ctrl.site" />
+            <input type="button" ng-click="$ctrl.ClickShow()" value="Update Table" />
+        </div>
+        <div class="col-xs-6">
+            <kendo-grid k-options="$ctrl.mainGridOptions" k-rebind="$ctrl.mainGridOptions">
+            </kendo-grid>
+        </div>
+    </div>
+</div>-->
